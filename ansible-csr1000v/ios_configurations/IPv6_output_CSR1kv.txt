@@ -1,0 +1,18 @@
+GigabitEthernet1       [up/up]
+    unassigned
+GigabitEthernet2       [up/up]
+    unassigned
+GigabitEthernet3       [administratively down/down]
+    unassigned
+Loopback100            [up/up]
+    unassigned
+Loopback101            [up/up]
+    unassigned
+Loopback123            [up/up]
+    unassigned
+Loopback2015           [administratively down/down]
+    unassigned
+Loopback10000          [administratively down/down]
+    unassigned
+Loopback10001          [administratively down/down]
+    unassigned

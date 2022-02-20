@@ -1,0 +1,219 @@
+Building configuration...
+
+  
+Current configuration : 3498 bytes
+!
+version 15.8
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$44x2$CFLfqDJwmKo9UHPPKEK.7.
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip domain name ccnplab.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+chat-script lte "" "AT!CALL" TIMEOUT 20 "OK"
+!
+!
+license udi pid IR809G-LTE-GA-K9 sn JMX2021X036
+!
+!
+username admin privilege 15 secret 5 $1$nS2I$oIqlcOXypbvzAuRGn1N2S.
+username teste secret 5 $1$S9Jl$9.aZN4zjKzEhqlE1A8N5x.
+!
+redundancy
+
+!
+!
+!
+!
+!
+controller Cellular 0
+ lte failovertimer 5
+ lte modem link-recovery rssi onset-threshold -110
+ lte modem link-recovery monitor-timer 20
+ lte modem link-recovery wait-timer 10
+ lte modem link-recovery debounce-count 6
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 1.1.1.1 255.255.255.255
+!
+interface Loopback100
+ ip address 192.168.100.2 255.255.255.255
+!
+interface GigabitEthernet0
+ ip address 192.168.0.211 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet1
+ ip address 10.10.10.1 255.255.255.0
+ ip access-group ALLOW-TFTP out
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Cellular0
+ ip address negotiated
+ encapsulation slip
+ dialer in-band
+ dialer idle-timeout 0
+ dialer string lte
+ dialer-group 1
+ ipv6 address autoconfig
+!
+interface Cellular1
+ no ip address
+ encapsulation slip
+!
+interface Async0
+ no ip address
+ encapsulation scada
+!
+interface Async1
+ no ip address
+ encapsulation scada
+!
+!
+!
+router eigrp 10
+ network 10.10.10.0 0.0.0.255
+ network 10.10.12.0 0.0.0.3
+ passive-interface GigabitEthernet1
+ eigrp router-id 10.10.10.1
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+ip access-list standard PERMIT-ADMIN
+ permit 10.10.10.0 0.0.0.255
+!
+ip access-list extended ALLOW-TFTP
+ permit udp 10.10.0.0 0.0.255.255 eq tftp host 10.10.10.10
+ permit udp 10.10.0.0 0.0.255.255 host 10.10.10.10 gt 1024
+ permit udp 10.10.0.0 0.0.255.255 host 10.10.10.10 eq syslog
+ permit udp 10.10.0.0 0.0.255.255 host 10.10.10.10 eq snmp
+ permit udp 10.10.0.0 0.0.255.255 host 10.10.10.10 eq snmptrap
+ permit tcp 10.10.0.0 0.0.255.255 eq 22 host 10.10.10.10
+ permit icmp any any
+!
+logging trap debugging
+logging host 10.10.10.10
+dialer-list 1 protocol ip permit
+dialer-list 1 protocol ipv6 permit
+ipv6 ioam timestamp
+!
+!
+snmp-server group ADMIN v3 priv read SNMP-RO access PERMIT-ADMIN
+snmp-server view SNMP-RO iso included
+snmp-server enable traps wpan
+!
+!
+!
+control-plane
+!
+!
+banner login ^C
+Atividades sendo monitoradas
+^C
+banner motd ^C This is R1, Trouble Ticket 23.1.1.1 ^C
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ stopbits 1
+line 1 2
+ stopbits 1
+line 3
+ script dialer lte
+ no exec
+ transport preferred lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+line 8
+ no exec
+ transport preferred lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+line 1/3 1/6
+ transport preferred none
+ transport output none
+ stopbits 1
+line vty 0 4
+ privilege level 15
+ transport input telnet ssh
+!
+no scheduler max-task-time
+no iox hdm-enable
+iox client enable interface GigabitEthernet2
+no iox recovery-enable
+!
+!
+!
+!
+!
+!
+!
+end

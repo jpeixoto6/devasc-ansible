@@ -1,0 +1,11 @@
+# Enter the hosts or devices for Ansible playbooks
+#CSR1kv ansible_user=cisco ansible_password=cisco123! ansible_host=192.168.0.28
+
+[cisco]
+#CSR1kv  ansible_user=developer ansible_password=C1sco12345 ansible_port=8181 ansible_host=ios-xe-mgmt.cisco.com
+rtr1  ansible_user=admin ansible_password=Cisco@123 ansible_host=192.168.0.210
+rtr2  ansible_user=admin ansible_password=Cisco@123 ansible_host=192.168.0.211
+
+[cisco:vars]
+ansible_network_os=ios
+ansible_connection=network_cli

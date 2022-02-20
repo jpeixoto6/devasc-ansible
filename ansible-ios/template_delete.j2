@@ -1,0 +1,4 @@
+{% for interface,ip in nodes[inventory_hostname].items() %}
+no interface {{interface}}
+{% endfor %}
+

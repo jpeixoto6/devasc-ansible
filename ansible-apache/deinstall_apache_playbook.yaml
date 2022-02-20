@@ -1,0 +1,16 @@
+---
+- hosts: webservers
+  become: yes
+  
+  tasks:
+    - name: STOP  APACHE2
+      service: name=apache2 state=stopped
+
+    - name: DEINSTALL APACHE2
+      apt: name=apache2 update_cache=yes state=absent
+
+    - name: Remove directory
+      file:
+        path: /etc/apache2
+        state: absent
+    

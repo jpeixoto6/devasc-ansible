@@ -1,0 +1,29 @@
+GigabitEthernet0       [administratively down/down]
+    unassigned
+GigabitEthernet1       [up/up]
+    unassigned
+GigabitEthernet2       [down/down]
+    unassigned
+GigabitEthernet3       [down/down]
+    unassigned
+GigabitEthernet4       [down/down]
+    unassigned
+Wlan-GigabitEthernet0  [up/up]
+    unassigned
+Async0                 [up/down]
+    unassigned
+Async1                 [up/down]
+    unassigned
+GigabitEthernet5       [administratively down/down]
+    unassigned
+Cellular0              [up/up]
+    unassigned
+Cellular1              [down/down]
+    unassigned
+Loopback100            [up/up]
+    FE80::1:1
+    2001:DB8:ACAD:1::1
+Vlan1                  [up/up]
+    unassigned
+wlan-ap0               [up/up]
+    unassigned

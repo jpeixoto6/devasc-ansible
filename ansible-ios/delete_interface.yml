@@ -1,0 +1,10 @@
+---
+- name: configure network devices
+  hosts: cisco
+  gather_facts: false
+
+  tasks:
+    - name: configure device with config
+      cli_config:
+        config: "{{ lookup('template', 'template_delete.j2') }}"
+
