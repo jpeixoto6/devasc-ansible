@@ -4,10 +4,15 @@
   
   tasks:
     - name: STOP  APACHE2
-      service: name=apache2 state=stopped
+      service: 
+        name=apache2 
+        state=stopped
 
     - name: DEINSTALL APACHE2
-      apt: name=apache2 update_cache=yes state=absent
+      apt: 
+        name=apache2 
+        update_cache=yes 
+        state=absent
 
     - name: Remove directory
       file:
